@@ -1,0 +1,24 @@
+<div class='wym_box field images_field'>
+  <ul id='page_images_<%%= chunk_name %>' class='clearfix'>
+    <%% f.object.images.where("<%= plural_name %>_images.chunk" => chunk_name ).order("position").each_with_index do |image, i| %>
+      <%%= render :partial => "image", :object => image, :locals => { :f => f, :chunk_name => chunk_name, :i => i } %>
+   <%% end %>
+
+    <li class='empty_<%= @chunk %> image_field empty'>
+        <div style="padding-bottom: 5px;">
+          <span style="font-weight: bold"></span>
+        </div>
+      <div class="image_actions" style="position:absolute;">
+        <img alt="edit" height="16" src="/images/refinery/icons/application_edit.png" width="16" class="edit_image" />
+        <img alt="delete" height="16" src="/images/refinery/icons/delete.png" width="16" class="delete_image"  style="float:right;" />
+      </div>
+      <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][chunk]", chunk_name %>
+      <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][id]", "" %>
+      <div id="dynamic_items" style="overflow:auto; max-height:270px;">
+		<%- for attribute in attributes -%>
+			<%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][<%= attribute.name %>]", "", :class => 'edit_items_<%= attribute.name %>' %>
+    	<%- end -%>
+	  </div>
+    </li>
+  </ul>
+</div>

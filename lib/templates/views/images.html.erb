@@ -1,0 +1,12 @@
+<div class='wym_skin_refinery page_part' id='page_image_picker'>
+  <span class='clearfix label_inline_with_link'>
+    <%%= link_to "Add", insert_admin_images_url({
+                  :dialog => true, :width => 950, :height => 510,
+                  :callback => "image_added",
+                  :chunk => chunk_name
+                }),
+                :id => "add_image_link" %>
+  </span>
+
+  <%%= render :partial => "images_field_#{chunk_name}", :locals => { :f => f, :chunk_name => chunk_name } %>
+</div>

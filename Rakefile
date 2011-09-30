@@ -15,12 +15,14 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "refinerycms-image-gallery"
-  gem.homepage = "http://github.com/viniciuszago/refinerycms-image-gallery"
+  gem.homepage = "http://github.com/ginga/refinerycms-image-gallery"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "Image Gallery for RefineryCMS."
+  gem.description = "Image Gallery for RefineryCMS."
   gem.email = "mvinicius.zago@gmail.com"
   gem.authors = ["Vinicius Zago"]
+  gem.executables = ["refinerycms_image_gallery"]
+  gem.files.include 'lib/templates/**/*'
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

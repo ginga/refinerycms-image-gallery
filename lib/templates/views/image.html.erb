@@ -1,0 +1,25 @@
+<%% random_data = ActiveSupport::SecureRandom.base64(6) %>
+<%%
+  # Img Dynamic Items
+  item = f.object.articles_images.where("position" => i)
+  <%- for attribute in attributes -%>
+   	<%= attribute.name %> = item[0].<%= attribute.name %> unless item[0].nil?
+  <%- end -%>
+%>
+<li id='image_<%%= image.id %>' class="image_field">
+  <div style="padding-bottom: 5px;" >
+    <span style="font-weight: bold" ><%%= image.title.titleize %></span>
+  </div>
+  <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{random_data}][chunk]", chunk_name %>
+  <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{random_data}][id]", image.id %>
+  <div class="image_actions" style="position:absolute;">
+    <img alt="edit" height="16" src="/images/refinery/icons/application_edit.png" width="16" class="edit_image" />
+    <img alt="delete" height="16" src="/images/refinery/icons/delete.png" width="16" class="delete_image"  style="float:right;" />
+  </div>
+  <%%= image_fu image, '135x135#c' %>
+  <div id="dynamic_items_<%%= image.id %>" style="overflow:auto; max-height:270px;">
+	<%- for attribute in attributes -%>
+		<%%= hidden_field_tag "#{f.object_name}[images_attributes][#{random_data}][<%= attribute.name %>]", <%= attribute.name %>, :class => 'edit_items_<%= attribute.name %>' %>
+  	<%- end -%>
+  </div>
+</li>

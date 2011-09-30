@@ -1,0 +1,30 @@
+a#add_image_link{
+  background: url('/images/refinery/icons/add.png') no-repeat 0px 6px;
+  margin-top: 0px;
+  line-height: 29px;
+  padding-left: 20px;
+  display: inline;
+  border-bottom: 0px none;
+}
+
+li.image_field{
+  float:left;
+  margin-left: 15px;
+  cursor: move;
+}
+
+li.empty {
+  display: none;
+}
+
+div.image_actions {
+  position: absolute;
+  background: white;
+  width: 135px;
+  padding: 3px;
+}
+
+div.image_actions img{
+  cursor: pointer;
+}
+
