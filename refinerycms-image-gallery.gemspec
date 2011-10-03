@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "refinerycms-image-gallery"
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Vinicius Zago"]
-  s.date = "2011-09-30"
+  s.date = "2011-10-03"
   s.description = "Image Gallery for RefineryCMS."
   s.email = "mvinicius.zago@gmail.com"
   s.executables = ["refinerycms_image_gallery"]
@@ -20,8 +20,14 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     "Gemfile",
+    "Gemfile.lock",
+    "LICENSE",
+    "README.md",
     "Rakefile",
+    "VERSION",
+    "bin/refinerycms_image_gallery",
     "lib/refinerycms-image-gallery.rb",
+    "lib/templates/javascripts/coffeescripts/gallery.coffee",
     "lib/templates/javascripts/gallery.js",
     "lib/templates/javascripts/refinery/admin.js",
     "lib/templates/migration.rb",
@@ -30,6 +36,7 @@ Gem::Specification.new do |s|
     "lib/templates/views/image.html.erb",
     "lib/templates/views/images.html.erb",
     "lib/templates/views/images_field.html.erb",
+    "refinerycms-image-gallery.gemspec",
     "test/helper.rb",
     "test/test_refinerycms-image-gallery.rb"
   ]
