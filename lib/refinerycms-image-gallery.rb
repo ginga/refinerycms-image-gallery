@@ -149,18 +149,41 @@ class RefinerycmsImageGalleryGenerator < Rails::Generators::NamedBase
   ######### Insert into view image gallery tab #########
   def add_tab_to_form
     unless File.exists?("#{file_path}/_images_field_#{@chunk}.html.erb")
-      insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
-        :after => "<ul id='page_parts'>" do
-          "\n\t\t<li class='ui-state-default'>" +
-            "\n\t\t\t<%= link_to '#{@chunk.camelize} Gallery', '##{@chunk}_gallery' %>" +
-          "\n\t\t</li>"
-      end
+      page_parts = open("app/views/admin/#{@plural_name}/_form.html.erb").grep(/page_parts/)
+      
+      if page_parts.empty?
+        insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
+          :before => '<%= render :partial => "/shared/admin/form_actions",' do
+            "\n\t<div class='field'>" +
+              "\n\t\t<div id='page-tabs' class='clearfix ui-tabs ui-widget ui-widget-content ui-corner-all'>" +
+                "\n\t\t\t<ul id='page_parts'>" +
+                  "\n\t\t\t\t<li class='ui-state-default'>" +
+                    "\n\t\t\t\t\t<%= link_to '#{@chunk.camelize} Gallery', '##{@chunk}_gallery' %>" +
+                  "\n\t\t\t</li>"+
+                "\n\t\t\t</ul>" +
+                
+                "\n\n\t\t\t<div id='page_part_editors'>" +
+                  "\n\t\t\t\t<div class='page_part' id='#{@chunk}_gallery'>" +
+                    "\n\t\t\t\t\t<%= render :partial => 'images', :locals => { :f => f, :chunk_name => '#{@chunk}' } -%>" +
+                  "\n\t\t\t\t</div>" +
+                "\n\t\t\t</div>" +
+              "\n\t\t</div>" +
+            "\n\t</div>\n"
+        end 
+      else
+        insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
+          :after => "<ul id='page_parts'>" do
+            "\n\t\t<li class='ui-state-default'>" +
+              "\n\t\t\t<%= link_to '#{@chunk.camelize} Gallery', '##{@chunk}_gallery' %>" +
+            "\n\t\t</li>"
+        end 
   
-      insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
-        :after => "<div id='page_part_editors'>" do
-          "\n\t\t<div class='page_part' id='#{@chunk}_gallery'>" +
-            "\n\t\t\t<%= render :partial => 'images', :locals => { :f => f, :chunk_name => '#{@chunk}' } -%>" +
-          "\n\t\t</div>"
+        insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
+          :after => "<div id='page_part_editors'>" do
+            "\n\t\t<div class='page_part' id='#{@chunk}_gallery'>" +
+              "\n\t\t\t<%= render :partial => 'images', :locals => { :f => f, :chunk_name => '#{@chunk}' } -%>" +
+            "\n\t\t</div>"
+        end
       end
     end
   end
@@ -168,16 +191,36 @@ class RefinerycmsImageGalleryGenerator < Rails::Generators::NamedBase
   ######### Insert into form partial the javascripts and css #########
   def add_js_and_css_to_form
     unless @check_migration
-      insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
-        :after => "<% content_for :javascripts do %>" do
-          "\n\t<%= javascript_include_tag 'gallery' %>"
-      end
-    
-      insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
-        :before => "<% content_for :javascripts do %>" do
-          "\n<% content_for :stylesheets do %>" +
-            "\n\t<%= stylesheet_link_tag 'gallery' %>" +
-          "\n<% end %>\n"
+      page_options = open("app/views/admin/#{@plural_name}/_form.html.erb").grep(/content_for :javascripts/)
+      
+      if page_options.empty?
+        insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
+          :before => "<%= form_for" do
+            "<% content_for :javascripts do %>" +
+              "\n\t<script>" +
+                "\n\t\t$(document).ready(function(){" +
+                  "\n\t\t\tpage_options.init(false, '', '');" +
+                "\n\t\t});" +
+              "\n\t</script>"+
+              "\n\t<%= javascript_include_tag 'gallery' %>" +
+            "\n<% end %>" +
+          
+            "\n\n<% content_for :stylesheets do %>" +
+              "\n\t<%= stylesheet_link_tag 'gallery' %>" +
+            "\n<% end %>\n\n"
+        end
+      else
+        insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
+          :after => "<% content_for :javascripts do %>" do
+            "\n\t<%= javascript_include_tag 'gallery' %>"
+        end
+        
+        insert_into_file "app/views/admin/#{@plural_name}/_form.html.erb",
+          :before => "<% content_for :javascripts do %>" do
+            "\n<% content_for :stylesheets do %>" +
+              "\n\t<%= stylesheet_link_tag 'gallery' %>" +
+            "\n<% end %>\n"
+        end
       end
     end
   end
