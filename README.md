@@ -26,7 +26,7 @@
  
  Creating new gallery for your engine:
 	
-	rails g refinerycms_image_gallery _singular_engine_name:gallery_name_ _attribute:type_
+	rails g refinerycms_image_gallery singular_engine_name:gallery_name attribute:type
 	
   For example, if you wanna create new gallery called Top for Post engine:
 	
