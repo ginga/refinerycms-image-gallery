@@ -1,12 +1,7 @@
-######### Require necessary generators for create a new migration #########
-require 'rails/generators'
-require 'rails/generators/migration'
-require 'rails/generators/active_record'
-
-class RefinerycmsImageGalleryGenerator < Rails::Generators::NamedBase
-  attr_accessor :attributes, :plural_class_name
+class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
+  attr_accessor :attributes, :name, :plural_class_name, :plural_name, :file_path
   
-  include Rails::Generators::Migration
+  source_root Pathname.new(File.expand_path('../templates', __FILE__))
   
   ######### Initialize generator with params #########
   def initialize(*args)
@@ -40,11 +35,6 @@ class RefinerycmsImageGalleryGenerator < Rails::Generators::NamedBase
     @file_path = "app/views/admin/#{@plural_name}/"
   end
   
-  ######### Define the path for templates #########
-  def self.source_root
-    @source_root ||= File.dirname(__FILE__) + '/templates'
-  end
-
   ##############################################################################
   ############################# GENERATE MIGRATION #############################
   ##############################################################################
@@ -101,7 +91,7 @@ class RefinerycmsImageGalleryGenerator < Rails::Generators::NamedBase
   ######### Create relationsheep model #########
   def create_model
     unless @check_migration
-      template 'models/model.rb', File.join('app/models', class_path, "#{plural_name}_image.rb")
+      template 'models/model.rb', File.join('app/models', "#{plural_name}_image.rb")
     end
   end
     
@@ -238,12 +228,12 @@ class RefinerycmsImageGalleryGenerator < Rails::Generators::NamedBase
   ######### Create view partial templates for images in gallery #########
   def create_view_templates
     unless @check_migration
-      template 'views/images.html.erb', File.join(file_path, class_path, "_images.html.erb")
-      template 'views/image.html.erb', File.join(file_path, class_path, "_image.html.erb")
-      template 'views/images_field.html.erb', File.join(file_path, class_path, "_images_field_#{@chunk}.html.erb")
+      template 'views/images.html.erb', File.join(file_path, "_images.html.erb")
+      template 'views/image.html.erb', File.join(file_path, "_image.html.erb")
+      template 'views/images_field.html.erb', File.join(file_path, "_images_field_#{@chunk}.html.erb")
     else
       unless File.exists?("#{file_path}/_images_field_#{@chunk}.html.erb")
-        template 'views/images_field.html.erb', File.join(file_path, class_path, "_images_field_#{@chunk}.html.erb")
+        template 'views/images_field.html.erb', File.join(file_path, "_images_field_#{@chunk}.html.erb")
       end
     end
   end
@@ -264,11 +254,11 @@ class RefinerycmsImageGalleryGenerator < Rails::Generators::NamedBase
   end
 
   def copy_javascript
-    template "javascripts/gallery.js", File.join("public/javascripts", class_path, "gallery.js") unless @check_migration
-  end
+    template "javascripts/gallery.js", File.join("public/javascripts", "gallery.js") unless @check_migration
+  end unless File.exists?("public/javascripts/gallery.js")
   
   def copy_css
-    template "stylesheets/gallery.css", File.join("public/stylesheets", class_path, "gallery.css")  unless @check_migration
-  end
+    template "stylesheets/gallery.css", File.join("public/stylesheets", "gallery.css")  unless @check_migration
+  end unless File.exists?("public/stylesheets/gallery.css")
 
 end
