@@ -43,3 +43,7 @@
 
   Note: When you run this line, automaticly generate models, views and run a migrate with relationship between engine and images.
 
+## TODO
+ 
+  * CSS
+  * Implement refinery Modules in generator
