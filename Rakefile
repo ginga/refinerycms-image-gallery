@@ -1,7 +1,9 @@
 # encoding: utf-8
 
+require 'psych'
 require 'rubygems'
 require 'bundler'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -17,8 +19,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "refinerycms-image-gallery"
   gem.homepage = "http://github.com/ginga/refinerycms-image-gallery"
   gem.license = "MIT"
-  gem.summary = "Image Gallery for RefineryCMS."
-  gem.description = "Image Gallery for RefineryCMS."
+  gem.summary = "Multi-purpose image-gallery for RefineryCMS."
+  gem.description = "Image Gallery for RefineryCMS that supports another fields like author, subtitles etc."
   gem.email = "mvinicius.zago@gmail.com"
   gem.authors = ["Vinicius Zago"]
   gem.executables = ["refinerycms_image_gallery"]
@@ -44,8 +46,8 @@ end
 
 task :default => :test
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
+require 'rdoc/task'
+RDoc::Task.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
