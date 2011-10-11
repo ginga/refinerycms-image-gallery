@@ -23,14 +23,25 @@ class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
         @attributes << Rails::Generators::GeneratedAttribute.new(name, type)
       end
     end
-        
+ 
     # Pluralize and camelize the class name
     @plural_name = @name.pluralize
     @plural_class_name = @name.pluralize.camelize
     
     # Check if migration already exists
     @check_migration = ActiveRecord::Base.connection.table_exists?("#{@plural_name}_images")  
-    
+
+    # Create @attributes variable for new gallery
+    if @attributes.empty? && @check_migration
+      @columns_exc = ["id", "#{@name}_id", "image_id", "position", "chunk", "created_at", "updated_at"]
+      "#{@plural_class_name}Image".constantize.column_names.each_with_index do |name, i|
+        type = "#{@plural_class_name}Image".constantize.columns[i].type
+        if @columns_exc.index("#{name}").nil?
+          @attributes << Rails::Generators::GeneratedAttribute.new(name, type)
+        end   
+      end
+    end
+
     # Define view class path
     @file_path = "app/views/admin/#{@plural_name}/"
   end

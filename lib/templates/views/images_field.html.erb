@@ -15,10 +15,10 @@
       <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][chunk]", chunk_name %>
       <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][id]", "" %>
       <div id="dynamic_items" style="overflow:auto; max-height:270px;">
-		<%- for attribute in attributes -%>
-			<%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][<%= attribute.name %>]", "", :class => 'edit_items_<%= attribute.name %>' %>
+		  <%- for attribute in attributes -%>
+			 <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][<%= attribute.name %>]", "", :class => 'edit_items_<%= attribute.name %>' %>
     	<%- end -%>
-	  </div>
+	    </div>
     </li>
   </ul>
 </div>
