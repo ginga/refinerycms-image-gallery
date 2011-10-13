@@ -50,7 +50,7 @@ jQuery ->
       return false
 
   # Reoder images
-  $('li.image_field').live 'hover' ->
+  $('li.image_field').live 'hover', ->
     chunk = $(this).find('input').first().val()
     $("#page_images_#{chunk}").sortable()
 
