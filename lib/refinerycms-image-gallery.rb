@@ -134,7 +134,7 @@ class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
                                                           :chunk => image_data['chunk'], 
                                                           #{@columns.join(', ')}
                                                         )
-          self.articles_images << image_gallery
+          self.#{plural_name}_images << image_gallery
         end
         self.touch
       end
