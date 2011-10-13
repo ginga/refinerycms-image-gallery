@@ -1,7 +1,7 @@
 <%% random_data = ActiveSupport::SecureRandom.base64(6) %>
 <%%
   # Img Dynamic Items
-  item = f.object.articles_images.where("position" => i)
+  item = f.object.<%= @plural_name %>_images.where("position" => i)
   <%- for attribute in attributes -%>
    	<%= attribute.name %> = item[0].<%= attribute.name %> unless item[0].nil?
   <%- end -%>
