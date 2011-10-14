@@ -1,3 +1,4 @@
+
 <div class='wym_box field images_field'>
   <ul id='page_images_<%%= chunk_name %>' class='clearfix'>
     <%% f.object.images.where("<%= plural_name %>_images.chunk" => chunk_name ).order("position").each_with_index do |image, i| %>
@@ -14,9 +15,9 @@
       </div>
       <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][chunk]", chunk_name %>
       <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][id]", "" %>
-      <div id="dynamic_items" style="overflow:auto; max-height:270px;">
+      <div id="dynamic_items" class="dynamic_items">
 		  <%- for attribute in attributes -%>
-			 <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][<%= attribute.name %>]", "", :class => 'edit_items_<%= attribute.name %>' %>
+			 <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{f.object.images.size}][<%= attribute.name %>]", "", :class => 'edit_items_<%= attribute.name %>_<%= attribute.type %>' %>
     	<%- end -%>
 	    </div>
     </li>

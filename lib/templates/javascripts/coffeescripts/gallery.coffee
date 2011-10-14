@@ -64,7 +64,7 @@ open_edit_image = (items, image_id) ->
   input.each (i, inp) ->
     title = $(inp).attr('class').replace 'edit_items_', ''
     value = $(inp).val()
-    $(inp).after $("<div id='image#{image_id}_title_#{title}'><span class='ui-dialog-title' id='ui-dialog-title-1' style='width: 300px; background: #22A7F2;float:left;'>#{title}</span><textarea style='width: 290px; height: 30px;'>#{value}</textarea></div>")
+    $(inp).after $("<div id='image#{image_id}_title_#{title}'><span class= 'image-fields-edit'>#{title.toUpperCase()}</span><textarea class='image-edit'>#{value}</textarea></div>")
 
   # Input a submit button
   input.after($("<div class='form-actions'><div class='form-actions-left'><a class='button' id='insert_fields'>Insert<a></div></div>"))
@@ -75,7 +75,8 @@ open_edit_image = (items, image_id) ->
                modal: true,
                resizable: false,
                autoOpen: true,
-               height:300
+               width: 800,
+               height: 500
   })
 
   # Insert click function
