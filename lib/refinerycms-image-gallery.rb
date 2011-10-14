@@ -1,3 +1,5 @@
+require 'refinery'
+
 class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
   attr_accessor :attributes, :name, :plural_class_name, :plural_name, :file_path
   
@@ -28,6 +30,12 @@ class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
     @plural_name = @name.pluralize
     @plural_class_name = @name.pluralize.camelize
     
+    # Check if engine exists
+    unless File.directory?("vendor/engines/#{@plural_name}")
+      puts "Engine '#{@name}' doesn't exists. Create this engine first."  
+      exit
+    end
+
     # Check if migration already exists
     @check_migration = ActiveRecord::Base.connection.table_exists?("#{@plural_name}_images")  
 
@@ -57,7 +65,7 @@ class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
 
   def generate_migration
     unless @check_migration
-      migration_template 'migration.rb', "db/migrate/create_#{plural_name}_images"
+      migration_template 'migration.rb', "db/migrate/create_#{@plural_name}_images"
       run "rake db:migrate"
     end
   end 
@@ -81,7 +89,7 @@ class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
   ######### Override your class admin/_form item if not exists #########
   def override_class_form
     unless File.exists?("app/views/admin/#{@plural_name}/_form.html.erb")
-      run "rake refinery:override view=admin/#{plural_name}/_form"
+      run "rake refinery:override view=admin/#{@plural_name}/_form"
     end
   end 
   
@@ -102,7 +110,7 @@ class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
   ######### Create relationsheep model #########
   def create_model
     unless @check_migration
-      template 'models/model.rb', File.join('app/models', "#{plural_name}_image.rb")
+      template 'models/model.rb', File.join('app/models', "#{@plural_name}_image.rb")
     end
   end
     
@@ -116,25 +124,25 @@ class RefinerycmsImageGalleryGenerator < ::Refinery::Generators::EngineInstaller
     
       # Insert into image model
       insert_into_file "app/models/image.rb", :after => "image_accessor :image\n" do
-        "\thas_many :#{plural_name}_images\n" +
-        "\thas_many :#{plural_name}, :through => :#{plural_name}_images\n"
+        "\thas_many :#{@plural_name}_images\n" +
+        "\thas_many :#{@plural_name}, :through => :#{@plural_name}_images\n"
       end   
     
       # Insert into object model
       insert_into_file "app/models/#{@name}.rb", :after => "ActiveRecord::Base\n" do
-        "\n\thas_many :#{plural_name}_images\n" +
-        "\thas_many :images, :through => :#{plural_name}_images\n" +
+        "\n\thas_many :#{@plural_name}_images\n" +
+        "\thas_many :images, :through => :#{@plural_name}_images\n" +
         "\n\tdef images_attributes=(data)
       #{plural_class_name}Image.delete_all(:#{@name}_id => self.id)
       data.each_with_index do | ( k, image_data ), i |
         if image_data['id'].present?
-          image_gallery = self.#{plural_name}_images.new(
+          image_gallery = self.#{@plural_name}_images.new(
                                                           :image_id => image_data['id'].to_i, 
                                                           :position => i, 
                                                           :chunk => image_data['chunk'], 
                                                           #{@columns.join(', ')}
                                                         )
-          self.#{plural_name}_images << image_gallery
+          self.#{@plural_name}_images << image_gallery
         end
         self.touch
       end
