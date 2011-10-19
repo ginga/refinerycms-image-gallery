@@ -16,7 +16,7 @@
 
   Add this line to your applications `Gemfile`
 	
-	gem 'refinerycms-image-gallery', '~> 0.1.1'
+	gem 'refinerycms-image-gallery', '~> 0.1.2'
 	
   Run:
 	
@@ -45,5 +45,4 @@
 
 ## TODO
  
-  * CSS
   * Implement refinery Modules in generator

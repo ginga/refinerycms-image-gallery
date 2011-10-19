@@ -1,7 +1,8 @@
 <div class='wym_box field images_field'>
   <ul id='page_images_<%%= chunk_name %>' class='clearfix'>
     <%% f.object.images.where("<%= plural_name %>_images.chunk" => chunk_name ).order("position").each_with_index do |image, i| %>
-      <%%= render :partial => "image", :object => image, :locals => { :f => f, :chunk_name => chunk_name, :i => i } %>
+      <%% position = image.<%= plural_name %>_images[i].position unless image.<%= plural_name %>_images[i].nil? %>
+      <%%= render :partial => "image", :object => image, :locals => { :f => f, :chunk_name => chunk_name, :position => position } %>
    <%% end %>
 
     <li class='empty_<%= @chunk %> image_field empty'>
