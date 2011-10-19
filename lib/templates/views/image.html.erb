@@ -1,4 +1,3 @@
-
 <%% random_data = ActiveSupport::SecureRandom.base64(6) %>
 <%%
   # Img Dynamic Items
@@ -20,7 +19,7 @@
   <%%= image_fu image, '135x135#c' %>
   <div id="dynamic_items_<%%= image.id %>" class="dynamic_items">
 	  <%- for attribute in attributes -%>
-		  <%%= hidden_field_tag "#{f.object_name}[images_attributes][#{random_data}][<%= attribute.name %>]", <%= attribute.name %>, :class => 'edit_items_<%= attribute.name %>_<%= attribute.type %>' %>
+		  <%%= hidden_field_tag "#{f.object_name}[images_attributes][#{random_data}][<%= attribute.name %>]", <%= attribute.name %>, :"data-name" => '<%= attribute.name %>' , :"data-type" => '<%= attribute.type %>' %>
   	<%- end -%>
   </div>
 </li>
