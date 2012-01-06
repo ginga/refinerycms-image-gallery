@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Vinicius Zago"]
-  s.date = "2011-10-19"
+  s.date = "2012-01-06"
   s.description = "Image Gallery for RefineryCMS that supports another fields like author, subtitles etc."
   s.email = "mvinicius.zago@gmail.com"
   s.executables = ["refinerycms_image_gallery"]
