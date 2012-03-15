@@ -13,7 +13,9 @@
   <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{random_data}][chunk]", chunk_name %>
   <%%= hidden_field_tag "#{f.object.class.name.underscore}[images_attributes][#{random_data}][id]", image.id %>
   <div class="image_actions" style="position:absolute;">
-    <img alt="edit" height="16" src="/images/refinery/icons/application_edit.png" width="16" class="edit_image" />
+    <%- unless attributes.empty? -%>
+      <img alt="edit" height="16" src="/images/refinery/icons/application_edit.png" width="16" class="edit_image" />
+    <%- end -%>
     <img alt="delete" height="16" src="/images/refinery/icons/delete.png" width="16" class="delete_image"  style="float:right;" />
   </div>
   <%%= image_fu image, '135x135#c' %>
