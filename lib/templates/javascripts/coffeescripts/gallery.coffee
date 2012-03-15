@@ -87,9 +87,17 @@ open_edit_image = (items, image_id) ->
                resizable: false,
                autoOpen: true,
                width: 800,
-               height: 500
+               height: 500,
+               close: ->
+                setTimeout ->
+                  fields.remove();
+                , 500; # This remove cloned fields after close
   })
 
+  # Close in x button without save changes
+  $('a.ui-dialog-titlebar-close').click -> 
+    fields.dialog('close');
+  
   # Insert click function
   $('a#insert_fields').click ->
     # For each input get the textarea value and change input value
@@ -133,9 +141,6 @@ open_edit_image = (items, image_id) ->
         input_val.val $("div#image#{image_id}_title_#{title}").find("#{field}").val()
 
       fields.dialog('close')
-
-    # Remove cloned div after close
-    fields.remove()
 
 # Create Fields for each type of element
 create_fields = (type, value) ->
