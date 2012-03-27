@@ -16,7 +16,7 @@
 
   Add this line to your applications `Gemfile`
 	
-	gem 'refinerycms-image-gallery', :git => 'git://github.com/ginga/refinerycms-image-gallery.git' 
+	gem 'refinerycms-image-gallery', "~> 0.1.3"
 	
   Run:
 	
