@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "refinerycms-image-gallery"
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Vinicius Zago"]
-  s.date = "2012-01-06"
+  s.date = "2012-03-15"
   s.description = "Image Gallery for RefineryCMS that supports another fields like author, subtitles etc."
   s.email = "mvinicius.zago@gmail.com"
   s.executables = ["refinerycms_image_gallery"]
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "bin/refinerycms_image_gallery",
     "lib/refinerycms-image-gallery.rb",
     "lib/templates/javascripts/coffeescripts/gallery.coffee",
+    "lib/templates/javascripts/coffeescripts/gallery.js",
     "lib/templates/javascripts/gallery.js",
     "lib/templates/javascripts/refinery/admin.js",
     "lib/templates/migration.rb",
@@ -52,12 +53,14 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
+      s.add_development_dependency(%q<rake>, ["= 0.9.2"])
     else
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<rdoc>, [">= 0"])
+      s.add_dependency(%q<rake>, ["= 0.9.2"])
     end
   else
     s.add_dependency(%q<shoulda>, [">= 0"])
@@ -65,6 +68,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<rdoc>, [">= 0"])
+    s.add_dependency(%q<rake>, ["= 0.9.2"])
   end
 end
 
